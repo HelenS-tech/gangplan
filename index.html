@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GangPlan</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+
+<body>
+
+    <main class="welcome-screen" id="welcomeScreen">
+
+        <img src="images/logo.png" alt="GangPlan logo" class="logo">
+
+        <h1>Plan life with your people.</h1>
+
+        <p>
+            Share plans, notes, calendars and lists with your gang.
+        </p>
+
+        <div class="welcome-buttons">
+            <button class="primary-btn" id="createGangBtn">
+             Create a Gang
+            </button>
+            <button class="secondary-btn">Join a Gang</button>
+        </div>
+
+    </main>
+
+    <section class="create-gang-screen hidden" id="createGangScreen">
+
+    <button class="back-btn" id="backToWelcome">← Back</button>
+
+    <h2>Create your Gang</h2>
+
+    <p>Start a shared space for your people.</p>
+
+    <form id="createGangForm">
+
+        <label for="gangName">Gang name</label>
+        <input
+            type="text"
+            id="gangName"
+            placeholder="e.g. The Smiths"
+            required
+        >
+
+        <label for="yourName">Your name</label>
+        <input
+            type="text"
+            id="yourName"
+            placeholder="e.g. Helen"
+            required
+        >
+
+        <label for="email">Email</label>
+        <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            required
+        >
+
+        <label for="password">Password</label>
+        <input
+            type="password"
+            id="password"
+            placeholder="Choose a password"
+            required
+        >
+
+        <button type="submit" class="primary-btn">
+            Create Gang
+        </button>
+
+    </form>
+
+</section>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #17304f;
+}
+
+.welcome-screen {
+    min-height: 100vh;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.logo {
+    width: 260px;
+    max-width: 80%;
+    margin-bottom: 30px;
+}
+
+h1 {
+    margin: 0 0 15px;
+    font-size: 2rem;
+}
+
+p {
+    max-width: 350px;
+    margin-bottom: 35px;
+    line-height: 1.5;
+}
+
+.welcome-buttons {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.primary-btn {
+    background-color: #1687f8;
+    color: white;
+}
+
+.secondary-btn {
+    background-color: white;
+    color: #17304f;
+    border: 2px solid #17304f;
+}
+
+.hidden {
+    display: none;
+}
+
+.create-gang-screen {
+    min-height: 100vh;
+    padding: 30px 20px;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.create-gang-screen h2 {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.create-gang-screen p {
+    text-align: center;
+    margin: 0 auto 30px;
+}
+
+#createGangForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#createGangForm label {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+#createGangForm input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+#createGangForm .primary-btn {
+    margin-top: 20px;
+}
+
+.back-btn {
+    width: auto;
+    padding: 8px 0;
+    background: none;
+    color: #17304f;
+    font-size: 1rem;
+}
