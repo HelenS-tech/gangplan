@@ -116,3 +116,173 @@ button {
     color: #17304f;
     font-size: 1rem;
 }
+
+.gang-dashboard {
+    min-height: 100vh;
+    padding: 30px 20px 100px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    margin-bottom: 30px;
+}
+
+.small-text {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.dashboard-header h2 {
+    margin: 5px 0;
+    font-size: 2rem;
+}
+
+#dashboardWelcome {
+    margin: 0;
+}
+
+.dashboard-grid {
+    display: grid;
+    gap: 18px;
+}
+
+.dashboard-card {
+    width: 100%;
+    padding: 22px;
+    background: white;
+    border: none;
+    border-radius: 18px;
+    text-align: left;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.card-icon {
+    font-size: 2rem;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 5px;
+}
+
+.bottom-nav button {
+    width: auto;
+    background: none;
+    color: #17304f;
+    padding: 4px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 1.1rem;
+}
+
+.bottom-nav span {
+    font-size: 0.7rem;
+}
+.board-screen,
+.note-form-screen {
+    min-height: 100vh;
+    padding: 30px 20px 100px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.board-header {
+    margin-bottom: 25px;
+}
+
+.board-header h2 {
+    margin: 5px 0;
+    font-size: 2rem;
+}
+
+.notes-container {
+    display: grid;
+    gap: 16px;
+}
+
+.note-card {
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.note-card p {
+    margin: 14px 0 0;
+}
+
+.note-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.note-top span {
+    color: #666;
+}
+
+.blue-note {
+    background-color: #e8f3ff;
+}
+
+.green-note {
+    background-color: #e8f8ee;
+}
+
+.purple-note {
+    background-color: #f1eaff;
+}
+
+.yellow-note {
+    background-color: #fff5d8;
+}
+
+.add-note-btn {
+    margin-top: 25px;
+    background-color: #17304f;
+    color: white;
+}
+
+#noteForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#noteForm label {
+    font-weight: bold;
+}
+
+#noteForm textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+}

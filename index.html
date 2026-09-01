@@ -1,86 +1,223 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>GangPlan</title>
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="images/favicon.png">
-</head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+  </head>
 
-<body>
+  <body>
 
+    <!-- Welcome Screen -->
     <main class="welcome-screen" id="welcomeScreen">
+      <img src="images/logo.png" alt="GangPlan logo" class="logo" />
 
-        <img src="images/logo.png" alt="GangPlan logo" class="logo">
+      <h1>Plan life with your people.</h1>
 
-        <h1>Plan life with your people.</h1>
+      <p>Share plans, notes, calendars and lists with your gang.</p>
 
-        <p>
-            Share plans, notes, calendars and lists with your gang.
-        </p>
+      <div class="welcome-buttons">
+        <button class="primary-btn" id="createGangBtn">
+          Create a Gang
+        </button>
 
-        <div class="welcome-buttons">
-            <button class="primary-btn" id="createGangBtn">
-             Create a Gang
-            </button>
-            <button class="secondary-btn">Join a Gang</button>
-        </div>
-
+        <button class="secondary-btn">
+          Join a Gang
+        </button>
+      </div>
     </main>
 
+
+    <!-- Create Gang Screen -->
     <section class="create-gang-screen hidden" id="createGangScreen">
 
-    <button class="back-btn" id="backToWelcome">← Back</button>
+      <button class="back-btn" id="backToWelcome">
+        ← Back
+      </button>
 
-    <h2>Create your Gang</h2>
+      <h2>Create your Gang</h2>
 
-    <p>Start a shared space for your people.</p>
+      <p>Start a shared space for your people.</p>
 
-    <form id="createGangForm">
+      <form id="createGangForm">
 
         <label for="gangName">Gang name</label>
         <input
-            type="text"
-            id="gangName"
-            placeholder="e.g. The Smiths"
-            required
-        >
+          type="text"
+          id="gangName"
+          placeholder="e.g. The Smiths"
+          required
+        />
 
         <label for="yourName">Your name</label>
         <input
-            type="text"
-            id="yourName"
-            placeholder="e.g. Helen"
-            required
-        >
+          type="text"
+          id="yourName"
+          placeholder="e.g. Helen"
+          required
+        />
 
         <label for="email">Email</label>
         <input
-            type="email"
-            id="email"
-            placeholder="you@example.com"
-            required
-        >
+          type="email"
+          id="email"
+          placeholder="you@example.com"
+          required
+        />
 
         <label for="password">Password</label>
         <input
-            type="password"
-            id="password"
-            placeholder="Choose a password"
-            required
-        >
+          type="password"
+          id="password"
+          placeholder="Choose a password"
+          required
+        />
 
         <button type="submit" class="primary-btn">
-            Create Gang
+          Create Gang
         </button>
 
-    </form>
+      </form>
+    </section>
 
-</section>
+
+    <!-- Gang Dashboard -->
+    <section class="gang-dashboard hidden" id="gangDashboard">
+
+      <header class="dashboard-header">
+        <p class="small-text">Your Gang</p>
+        <h2 id="dashboardGangName">GangPlan</h2>
+        <p id="dashboardWelcome">Welcome!</p>
+      </header>
+
+      <section class="dashboard-grid">
+
+        <button class="dashboard-card" id="openBoardBtn">
+          <span class="card-icon">💬</span>
+          <span class="card-title">Board</span>
+          <span class="card-text">Share notes and updates</span>
+        </button>
+
+        <button class="dashboard-card">
+          <span class="card-icon">📅</span>
+          <span class="card-title">Calendar</span>
+          <span class="card-text">See what everyone has planned</span>
+        </button>
+
+        <button class="dashboard-card">
+          <span class="card-icon">✅</span>
+          <span class="card-title">Lists</span>
+          <span class="card-text">To do and to buy</span>
+        </button>
+
+      </section>
+
+      <nav class="bottom-nav">
+        <button>
+          🏠
+          <span>Home</span>
+        </button>
+
+        <button id="navBoardBtn">
+          💬
+          <span>Board</span>
+        </button>
+
+        <button>
+          📅
+          <span>Calendar</span>
+        </button>
+
+        <button>
+          ✅
+          <span>Lists</span>
+        </button>
+      </nav>
+
+    </section>
+
+
+    <!-- Board Screen -->
+    <section class="board-screen hidden" id="boardScreen">
+
+      <header class="board-header">
+
+        <button class="back-btn" id="backToDashboard">
+          ← Home
+        </button>
+
+        <p class="small-text">GangPlan</p>
+
+        <h2 id="boardGangName">
+          The Board
+        </h2>
+
+        <p>What does your gang need to know?</p>
+
+      </header>
+
+
+      <section class="notes-container" id="notesContainer">
+
+        <article class="note-card blue-note">
+
+          <div class="note-top">
+            <strong>Helen</strong>
+            <span>Today</span>
+          </div>
+
+          <p>Welcome to the GangPlan board!</p>
+
+        </article>
+
+      </section>
+
+
+      <button class="add-note-btn" id="addNoteBtn">
+        + Add a note
+      </button>
+
+    </section>
+
+
+    <!-- Add Note Screen -->
+    <section class="note-form-screen hidden" id="noteFormScreen">
+
+      <button class="back-btn" id="cancelNoteBtn">
+        ← Cancel
+      </button>
+
+      <h2>Add a note</h2>
+
+      <p>Share something with your gang.</p>
+
+      <form id="noteForm">
+
+        <label for="noteText">
+          Your note
+        </label>
+
+        <textarea
+          id="noteText"
+          rows="6"
+          placeholder="e.g. Don't forget we're out for dinner Friday!"
+          required
+        ></textarea>
+
+        <button type="submit" class="primary-btn">
+          Post Note
+        </button>
+
+      </form>
+
+    </section>
+
 
     <script src="app.js"></script>
-</body>
+
+  </body>
 </html>
