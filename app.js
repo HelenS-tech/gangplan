@@ -34,18 +34,37 @@ backToWelcome.addEventListener("click", () => {
     welcomeScreen.classList.remove("hidden");
 });
 
-createGangForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+createGangForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-    const gangName = document.getElementById("gangName").value;
-    const yourName = document.getElementById("yourName").value;
+  const gangName = document.getElementById("gangName").value;
+  const yourName = document.getElementById("yourName").value;
 
-    createGangScreen.classList.add("hidden");
-    gangDashboard.classList.remove("hidden");
+  const { data, error } = await supabaseClient
+    .from("gangs")
+    .insert([
+      {
+        name: gangName,
+        created_by: yourName
+      }
+    ])
+    .select()
+    .single();
 
-    document.getElementById("dashboardGangName").textContent = gangName;
-    document.getElementById("dashboardWelcome").textContent =
-        `Welcome, ${yourName}!`;
+  if (error) {
+    console.error("Error creating gang:", error);
+    alert("There was a problem creating your gang.");
+    return;
+  }
+
+  console.log("Gang created:", data);
+
+  createGangScreen.classList.add("hidden");
+  gangDashboard.classList.remove("hidden");
+
+  document.getElementById("dashboardGangName").textContent = gangName;
+  document.getElementById("dashboardWelcome").textContent =
+    `Welcome, ${yourName}!`;
 });
 
 function openBoard() {
