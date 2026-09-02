@@ -71,12 +71,53 @@ createGangForm.addEventListener("submit", async (event) => {
     `Welcome, ${yourName}!`;
 });
 
-function openBoard() {
-    gangDashboard.classList.add("hidden");
-    boardScreen.classList.remove("hidden");
+async function loadNotes() {
+  const { data, error } = await supabaseClient
+    .from("notes")
+    .select("*")
+    .eq("gang_id", currentGangId)
+    .order("created_at", { ascending: false });
 
-    const gangName = document.getElementById("dashboardGangName").textContent;
-    document.getElementById("boardGangName").textContent = `${gangName} Board`;
+  if (error) {
+    console.error("Error loading notes:", error);
+    return;
+  }
+
+  notesContainer.innerHTML = "";
+
+  data.forEach((savedNote, index) => {
+    const note = document.createElement("article");
+
+    const colourClass = noteColours[index % noteColours.length];
+
+    note.classList.add("note-card", colourClass);
+
+    const createdDate = new Date(savedNote.created_at);
+
+    note.innerHTML = `
+      <div class="note-top">
+        <strong>${savedNote.author}</strong>
+        <span>${createdDate.toLocaleDateString()}</span>
+      </div>
+
+      <p>${savedNote.note_text}</p>
+    `;
+
+    notesContainer.appendChild(note);
+  });
+}
+
+async function openBoard() {
+  gangDashboard.classList.add("hidden");
+  boardScreen.classList.remove("hidden");
+
+  const gangName =
+    document.getElementById("dashboardGangName").textContent;
+
+  document.getElementById("boardGangName").textContent =
+    `${gangName} Board`;
+
+  await loadNotes();
 }
 
 openBoardBtn.addEventListener("click", openBoard);
