@@ -1,3 +1,10 @@
+const SUPABASE_URL = "https://velesgbkpfjiiaixmuiq.supabase.co";
+const SUPABASE_KEY = "sb_publishable_X-EOyvGZ-2el_h7EZFT_Vg_mWYzw76w";
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 const welcomeScreen = document.getElementById("welcomeScreen");
 const createGangScreen = document.getElementById("createGangScreen");
 const createGangBtn = document.getElementById("createGangBtn");
