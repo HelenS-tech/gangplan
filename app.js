@@ -24,6 +24,8 @@ const noteForm = document.getElementById("noteForm");
 
 const notesContainer = document.getElementById("notesContainer");
 
+let currentGangId = null;
+
 createGangBtn.addEventListener("click", () => {
     welcomeScreen.classList.add("hidden");
     createGangScreen.classList.remove("hidden");
@@ -59,6 +61,8 @@ createGangForm.addEventListener("submit", async (event) => {
 
   console.log("Gang created:", data);
 
+  currentGangId = data.id;
+
   createGangScreen.classList.add("hidden");
   gangDashboard.classList.remove("hidden");
 
@@ -91,4 +95,63 @@ addNoteBtn.addEventListener("click", () => {
 cancelNoteBtn.addEventListener("click", () => {
     noteFormScreen.classList.add("hidden");
     boardScreen.classList.remove("hidden");
+});
+
+const noteColours = [
+  "blue-note",
+  "green-note",
+  "purple-note",
+  "yellow-note"
+];
+
+let nextColour = 0;
+
+noteForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const noteText = document.getElementById("noteText").value;
+  const yourName = document.getElementById("yourName").value;
+
+  const { data, error } = await supabaseClient
+    .from("notes")
+    .insert([
+      {
+        gang_id: currentGangId,
+        author: yourName,
+        note_text: noteText
+      }
+    ])
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Error creating note:", error);
+    alert("There was a problem posting your note.");
+    return;
+  }
+
+  const note = document.createElement("article");
+
+  note.classList.add(
+    "note-card",
+    noteColours[nextColour]
+  );
+
+  note.innerHTML = `
+    <div class="note-top">
+      <strong>${data.author}</strong>
+      <span>Just now</span>
+    </div>
+
+    <p>${data.note_text}</p>
+  `;
+
+  notesContainer.prepend(note);
+
+  nextColour = (nextColour + 1) % noteColours.length;
+
+  noteForm.reset();
+
+  noteFormScreen.classList.add("hidden");
+  boardScreen.classList.remove("hidden");
 });
