@@ -5,8 +5,8 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    color: #17304f;
+    background-color:  #F47A2A;
+    
 }
 
 .welcome-screen {
@@ -17,23 +17,31 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
+
 }
 
 .logo {
     width: 260px;
     max-width: 80%;
-    margin-bottom: 30px;
-}
+    }
+
 
 h1 {
     margin: 0 0 15px;
     font-size: 2rem;
+    color: #17304f;
+    font-style: italic;
+    font-family: Georgia, serif;
 }
 
 p {
     max-width: 350px;
     margin-bottom: 35px;
     line-height: 1.5;
+    color: #17304f;
+    font-family: Arial, sans-serif;
+    font-style: normal;
+    font-size: smaller;
 }
 
 .welcome-buttons {
@@ -55,12 +63,13 @@ button {
 }
 
 .primary-btn {
-    background-color: #1687f8;
-    color: white;
+    background-color: #17304f;
+    color: #f5efe3;
+     border: 2px solid #f5efe3;
 }
 
 .secondary-btn {
-    background-color: white;
+    background-color:#f5efe3;
     color: #17304f;
     border: 2px solid #17304f;
 }
