@@ -21,6 +21,8 @@ const noteForm = document.getElementById("noteForm");
 
 const notesContainer = document.getElementById("notesContainer");
 
+const logoutBtn = document.getElementById("logoutBtn");
+
 let currentGangId = localStorage.getItem("currentGangId");
 
 createGangBtn.addEventListener("click", () => {
@@ -209,3 +211,18 @@ async function restoreGang() {
 }
 
 restoreGang();
+
+logoutBtn.addEventListener("click", () => {
+  localStorage.removeItem("currentGangId");
+  localStorage.removeItem("currentGangName");
+  localStorage.removeItem("currentUserName");
+
+  currentGangId = null;
+
+  gangDashboard.classList.add("hidden");
+  boardScreen.classList.add("hidden");
+  noteFormScreen.classList.add("hidden");
+  createGangScreen.classList.add("hidden");
+
+  welcomeScreen.classList.remove("hidden");
+});
