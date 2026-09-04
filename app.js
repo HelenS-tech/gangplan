@@ -23,6 +23,11 @@ const notesContainer = document.getElementById("notesContainer");
 
 const logoutBtn = document.getElementById("logoutBtn");
 
+const loginBtn = document.getElementById("loginBtn");
+const loginScreen = document.getElementById("loginScreen");
+const backFromLogin = document.getElementById("backFromLogin");
+const loginForm = document.getElementById("loginForm");
+
 let currentGangId = localStorage.getItem("currentGangId");
 
 createGangBtn.addEventListener("click", () => {
@@ -248,6 +253,16 @@ async function restoreGang() {
 
 restoreGang();
 
+loginBtn.addEventListener("click", () => {
+  welcomeScreen.classList.add("hidden");
+  loginScreen.classList.remove("hidden");
+});
+
+backFromLogin.addEventListener("click", () => {
+  loginScreen.classList.add("hidden");
+  welcomeScreen.classList.remove("hidden");
+});
+
 logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("currentGangId");
   localStorage.removeItem("currentGangName");
@@ -261,4 +276,61 @@ logoutBtn.addEventListener("click", () => {
   createGangScreen.classList.add("hidden");
 
   welcomeScreen.classList.remove("hidden");
+});
+
+loginForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  const { data: loginData, error: loginError } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+  if (loginError) {
+    console.error("Login error:", loginError);
+    alert("Unable to log in. Please check your email and password.");
+    return;
+  }
+
+  const userId = loginData.user.id;
+
+  const { data: membership, error: membershipError } = await supabaseClient
+    .from("gang_members")
+    .select(
+      `
+        gang_id,
+        display_name,
+        gangs (
+          name
+        )
+      `,
+    )
+    .eq("user_id", userId)
+    .single();
+
+  if (membershipError) {
+    console.error("Membership lookup error:", membershipError);
+    alert("We couldn't find your gang membership.");
+    return;
+  }
+
+  currentGangId = membership.gang_id;
+
+  const gangName = membership.gangs.name;
+  const userName = membership.display_name;
+
+  localStorage.setItem("currentGangId", currentGangId);
+  localStorage.setItem("currentGangName", gangName);
+  localStorage.setItem("currentUserName", userName);
+
+  loginScreen.classList.add("hidden");
+  gangDashboard.classList.remove("hidden");
+
+  document.getElementById("dashboardGangName").textContent = gangName;
+  document.getElementById("dashboardWelcome").textContent =
+    `Welcome, ${userName}!`;
 });
