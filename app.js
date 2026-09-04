@@ -231,27 +231,61 @@ noteForm.addEventListener("submit", async (event) => {
   boardScreen.classList.remove("hidden");
 });
 
-async function restoreGang() {
-  const savedGangId = localStorage.getItem("currentGangId");
-  const savedGangName = localStorage.getItem("currentGangName");
-  const savedUserName = localStorage.getItem("currentUserName");
+async function restoreSession() {
+  const {
+    data: { session }
+  } = await supabaseClient.auth.getSession();
 
-  if (!savedGangId) {
+  if (!session) {
     return;
   }
 
-  currentGangId = savedGangId;
-
-  welcomeScreen.classList.add("hidden");
-  createGangScreen.classList.add("hidden");
-  gangDashboard.classList.remove("hidden");
-
-  document.getElementById("dashboardGangName").textContent = savedGangName;
-  document.getElementById("dashboardWelcome").textContent =
-    `Welcome, ${savedUserName}!`;
+  await loadUserGang(session.user.id);
 }
 
-restoreGang();
+restoreSession();
+
+async function loadUserGang(userId) {
+  const { data: membership, error: membershipError } =
+    await supabaseClient
+      .from("gang_members")
+      .select(`
+        gang_id,
+        display_name,
+        gangs (
+          name
+        )
+      `)
+      .eq("user_id", userId)
+      .single();
+
+  if (membershipError) {
+    console.error("Membership lookup error:", membershipError);
+    return false;
+  }
+
+  currentGangId = membership.gang_id;
+
+  const gangName = membership.gangs.name;
+  const userName = membership.display_name;
+
+  // We'll keep these for now because they're useful
+  localStorage.setItem("currentGangId", currentGangId);
+  localStorage.setItem("currentGangName", gangName);
+  localStorage.setItem("currentUserName", userName);
+
+  welcomeScreen.classList.add("hidden");
+  loginScreen.classList.add("hidden");
+  createGangScreen.classList.add("hidden");
+
+  gangDashboard.classList.remove("hidden");
+
+  document.getElementById("dashboardGangName").textContent = gangName;
+  document.getElementById("dashboardWelcome").textContent =
+    `Welcome, ${userName}!`;
+
+  return true;
+}
 
 loginBtn.addEventListener("click", () => {
   welcomeScreen.classList.add("hidden");
@@ -287,7 +321,7 @@ loginForm.addEventListener("submit", async (event) => {
   const { data: loginData, error: loginError } =
     await supabaseClient.auth.signInWithPassword({
       email,
-      password,
+      password
     });
 
   if (loginError) {
@@ -298,39 +332,9 @@ loginForm.addEventListener("submit", async (event) => {
 
   const userId = loginData.user.id;
 
-  const { data: membership, error: membershipError } = await supabaseClient
-    .from("gang_members")
-    .select(
-      `
-        gang_id,
-        display_name,
-        gangs (
-          name
-        )
-      `,
-    )
-    .eq("user_id", userId)
-    .single();
+  const gangLoaded = await loadUserGang(userId);
 
-  if (membershipError) {
-    console.error("Membership lookup error:", membershipError);
-    alert("We couldn't find your gang membership.");
-    return;
+  if (!gangLoaded) {
+    alert("You are logged in, but we couldn't find your gang.");
   }
-
-  currentGangId = membership.gang_id;
-
-  const gangName = membership.gangs.name;
-  const userName = membership.display_name;
-
-  localStorage.setItem("currentGangId", currentGangId);
-  localStorage.setItem("currentGangName", gangName);
-  localStorage.setItem("currentUserName", userName);
-
-  loginScreen.classList.add("hidden");
-  gangDashboard.classList.remove("hidden");
-
-  document.getElementById("dashboardGangName").textContent = gangName;
-  document.getElementById("dashboardWelcome").textContent =
-    `Welcome, ${userName}!`;
 });
