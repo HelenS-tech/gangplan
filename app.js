@@ -297,7 +297,14 @@ backFromLogin.addEventListener("click", () => {
   welcomeScreen.classList.remove("hidden");
 });
 
-logoutBtn.addEventListener("click", () => {
+logoutBtn.addEventListener("click", async () => {
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    console.error("Logout error:", error);
+    return;
+  }
+
   localStorage.removeItem("currentGangId");
   localStorage.removeItem("currentGangName");
   localStorage.removeItem("currentUserName");
@@ -308,6 +315,7 @@ logoutBtn.addEventListener("click", () => {
   boardScreen.classList.add("hidden");
   noteFormScreen.classList.add("hidden");
   createGangScreen.classList.add("hidden");
+  loginScreen.classList.add("hidden");
 
   welcomeScreen.classList.remove("hidden");
 });
