@@ -40,14 +40,30 @@ createGangForm.addEventListener("submit", async (event) => {
 
   const gangName = document.getElementById("gangName").value;
   const yourName = document.getElementById("yourName").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const { data: authData, error: authError } =
+    await supabaseClient.auth.signUp({
+      email: email,
+      password: password
+    });
+
+  if (authError) {
+    console.error("Error creating account:", authError);
+    alert(authError.message);
+    return;
+  }
+
+  console.log("User created:", authData);
 
   const { data, error } = await supabaseClient
     .from("gangs")
     .insert([
       {
         name: gangName,
-        created_by: yourName,
-      },
+        created_by: yourName
+      }
     ])
     .select()
     .single();
@@ -57,8 +73,6 @@ createGangForm.addEventListener("submit", async (event) => {
     alert("There was a problem creating your gang.");
     return;
   }
-
-  console.log("Gang created:", data);
 
   currentGangId = data.id;
 
